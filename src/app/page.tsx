@@ -5,7 +5,7 @@ const HomePage = async () => {
 
   console.log(workouts);
 
-  return <h1>Fit Log</h1>;
+  // return <h1>Fit Log</h1>;
 };
 
 export default HomePage;
