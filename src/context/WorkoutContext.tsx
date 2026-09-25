@@ -17,13 +17,33 @@ export const WorkoutProvider = ({ children }: { children: React.ReactNode }) => 
     const [saved, setSaved] = useState<Workout[]>([]);
 
     const addToPlan = (workout: Workout) => {
-        setPlan((previousPlan) => [...previousPlan, workout]);
+        setPlan((previousPlan) => {
+            const alreadyExists = previousPlan.some(
+                (item) => item.id === workout.id
+            );
 
-    }
+            if (alreadyExists) {
+                return previousPlan;
+            }
+
+            return [...previousPlan, workout];
+        });
+    };
 
     const saveWorkout = (workout: Workout) => {
-        setSaved((previousSaved) => [...previousSaved, workout]);
-    }
+        setSaved((previousSaved) => {
+            const alreadyExists = previousSaved.some(
+                (item) => item.id === workout.id
+            );
+
+            if (alreadyExists) {
+                return previousSaved;
+            }
+
+            return [...previousSaved, workout];
+        });
+    };
+    
     return (
         <WorkoutContext.Provider
             value={{
