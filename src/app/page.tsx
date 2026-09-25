@@ -1,11 +1,11 @@
-import { getWorkouts } from "@/lib/api";
+import Hero from "@/components/Hero";
 
-const HomePage = async () => {
-  const workouts = await getWorkouts();
-
-  console.log(workouts);
-
-  // return <h1>Fit Log</h1>;
+const HomePage = () => {
+    return (
+        <>
+            <Hero />
+        </>
+    );
 };
 
 export default HomePage;
