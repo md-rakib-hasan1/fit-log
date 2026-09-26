@@ -1,4 +1,6 @@
+
 "use client";
+
 import { createContext, useContext, useState } from "react";
 import type { Workout } from "../types/workout";
 
@@ -7,12 +9,19 @@ interface WorkoutContextType {
     saved: Workout[];
     addToPlan: (workout: Workout) => void;
     saveWorkout: (workout: Workout) => void;
-};
+    removeFromPlan: (id: number) => void;
+    removeFromSaved: (id: number) => void;
+}
 
+const WorkoutContext = createContext<WorkoutContextType | undefined>(
+    undefined
+);
 
-const WorkoutContext = createContext<WorkoutContextType | undefined>(undefined);
-
-export const WorkoutProvider = ({ children }: { children: React.ReactNode }) => {
+export const WorkoutProvider = ({
+    children,
+}: {
+    children: React.ReactNode;
+}) => {
     const [plan, setPlan] = useState<Workout[]>([]);
     const [saved, setSaved] = useState<Workout[]>([]);
 
@@ -43,7 +52,19 @@ export const WorkoutProvider = ({ children }: { children: React.ReactNode }) => 
             return [...previousSaved, workout];
         });
     };
-    
+
+    const removeFromPlan = (id: number) => {
+        setPlan((previousPlan) =>
+            previousPlan.filter((workout) => workout.id !== id)
+        );
+    };
+
+    const removeFromSaved = (id: number) => {
+        setSaved((previousSaved) =>
+            previousSaved.filter((workout) => workout.id !== id)
+        );
+    };
+
     return (
         <WorkoutContext.Provider
             value={{
@@ -51,12 +72,12 @@ export const WorkoutProvider = ({ children }: { children: React.ReactNode }) => 
                 saved,
                 addToPlan,
                 saveWorkout,
+                removeFromPlan,
+                removeFromSaved,
             }}
         >
             {children}
-
         </WorkoutContext.Provider>
-
     );
 };
 
@@ -69,3 +90,4 @@ export const useWorkout = () => {
 
     return context;
 };
+

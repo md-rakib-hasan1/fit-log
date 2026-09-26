@@ -164,7 +164,6 @@ const WorkoutDetailsPage = async ({
 
                         </div>
 
-                        {/* Actions */}
                         <WorkoutActions workout={workout} />
 
                     </div>
