@@ -2,6 +2,9 @@
 
 FitLog is a simple and responsive workout library built with Next.js. Users can explore different workouts, view workout details, save workouts, and create a personal workout plan.
 
+ ## 🔗 Live Link
+ [Fit-Log](https://fit-log-delta-snowy.vercel.app/)
+
 ## 🛠️ Technologies Used
 
 * Next.js
