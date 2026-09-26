@@ -16,6 +16,7 @@ const MyPlanPage = () => {
     const [loading, setLoading] = useState(false);
     const [doneIds, setDoneIds] = useState<number[]>([]);
     const [toast, setToast] = useState("");
+    const [toastType, setToastType] = useState<"success" | "error">("success");
     const [sortBy, setSortBy] = useState<"duration" | "calories" | "rating">(
         "duration"
     );
@@ -30,22 +31,28 @@ const MyPlanPage = () => {
         0
     );
 
-    const showToast = (message: string) => {
+    const showToast = (
+        message: string,
+        type: "success" | "error" = "success"
+    ) => {
         setToast(message);
+        setToastType(type);
 
         setTimeout(() => {
             setToast("");
         }, 2000);
     };
 
+
+
     const handleRemovePlan = (id: number, name: string) => {
         removeFromPlan(id);
-        showToast(`${name} removed from today's plan`);
+        showToast(`${name} removed from today's plan`, "error");
     };
 
     const handleRemoveSaved = (id: number, name: string) => {
         removeFromSaved(id);
-        showToast(`${name} removed from saved`);
+        showToast(`${name} removed from saved`, "error");
     };
 
     const handleMarkDone = (id: number, name: string) => {
@@ -57,8 +64,9 @@ const MyPlanPage = () => {
             return [...previousIds, id];
         });
 
-        showToast(`${name} marked as done`);
+        showToast(`${name} marked as done`, "success");
     };
+
 
     const handleTabChange = (tab: "plan" | "saved") => {
         setLoading(true);
@@ -479,8 +487,23 @@ const MyPlanPage = () => {
             </div>
 
             {toast && (
-                <div className="fixed bottom-6 left-1/2 z-50 -translate-x-1/2 rounded-lg border border-gray-700 bg-[#17191f] px-5 py-3 text-sm text-white shadow-xl">
-                    {toast}
+                <div
+                    className={`fixed bottom-6 left-1/2 z-50 w-[90%] max-w-md -translate-x-1/2 overflow-hidden rounded-lg border bg-[#17191f] px-5 py-3 text-sm text-white shadow-xl ${toastType === "success"
+                            ? "border-green-500/40"
+                            : "border-red-500/40"
+                        }`}
+                >
+                    <p>{toast}</p>
+
+                    <div
+                        className={`absolute bottom-0 left-0 h-1 ${toastType === "success"
+                                ? "bg-green-500"
+                                : "bg-red-500"
+                            }`}
+                        style={{
+                            animation: "toastProgress 2s linear forwards",
+                        }}
+                    />
                 </div>
             )}
 
