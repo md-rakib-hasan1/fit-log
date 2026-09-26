@@ -10,10 +10,10 @@ const Navbar = () => {
     const pathname = usePathname();
 
     return (
-        <nav className="w-full border-b border-gray-800 bg-[#0a0a0a] px-4 py-3 text-white md:h-16 md:px-7 md:py-0">
-            <div className="flex flex-wrap items-center justify-between gap-y-3">
+        <nav className="w-full border-b border-gray-800 bg-[#0a0a0a] px-4 py-4 text-white md:h-16 md:px-7 md:py-0">
+            <div className="flex flex-wrap items-center justify-between gap-y-5 md:h-full md:flex-nowrap md:gap-y-0">
 
-                {/* Logo */}
+              
                 <div className="flex items-center gap-2 sm:gap-3">
                     <Image
                         src="/assets/logo.png"
@@ -27,9 +27,8 @@ const Navbar = () => {
                     </h2>
                 </div>
 
-                {/* Plan & Saved */}
-                <div className="order-2 flex items-center gap-3 text-xs sm:gap-5 md:order-3 md:gap-6">
-
+                
+                <div className="order-2 flex items-center gap-4 text-xs md:order-3 md:gap-6">
                     <Link
                         href="/my-plan"
                         className="flex items-center gap-1.5 text-gray-300"
@@ -51,15 +50,14 @@ const Navbar = () => {
                             {saved.length}
                         </span>
                     </Link>
-
                 </div>
 
                 
-                <div className="order-3 flex w-full items-center justify-center gap-1 md:order-2 md:w-auto md:gap-2">
+                <div className="order-3 flex w-full items-center justify-center gap-3 md:order-2 md:w-auto md:gap-2">
 
                     <Link
                         href="/"
-                        className={`rounded-full px-3 py-2 text-xs transition-colors sm:px-4 ${
+                        className={`rounded-full px-4 py-2 text-xs transition-colors ${
                             pathname === "/"
                                 ? "bg-lime-900 text-lime-200"
                                 : "text-gray-400 hover:text-white"
@@ -70,7 +68,7 @@ const Navbar = () => {
 
                     <Link
                         href="/my-plan"
-                        className={`rounded-full px-3 py-2 text-xs transition-colors sm:px-4 ${
+                        className={`rounded-full px-4 py-2 text-xs transition-colors ${
                             pathname === "/my-plan"
                                 ? "bg-lime-900 text-lime-200"
                                 : "text-gray-400 hover:text-white"
@@ -80,7 +78,6 @@ const Navbar = () => {
                     </Link>
 
                 </div>
-
             </div>
         </nav>
     );
