@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { getWorkoutById } from "@/lib/api";
 import WorkoutActions from "@/components/WorkoutActions";
+import { notFound } from "next/navigation";
 
 interface WorkoutDetailsPageProps {
     params: Promise<{
@@ -13,7 +14,13 @@ const WorkoutDetailsPage = async ({
 }: WorkoutDetailsPageProps) => {
     const { id } = await params;
 
-    const workout = await getWorkoutById(id);
+    let workout;
+
+    try {
+        workout = await getWorkoutById(id);
+    } catch {
+        notFound();
+    }
 
     return (
         <main className="min-h-[calc(100vh-4rem)] px-6 py-8 md:px-8 lg:px-10">
